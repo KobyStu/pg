@@ -38,6 +38,7 @@ def max_number(a, b, c):
 #max_number(1.1,1.2,1.3)
 #1.3
 
+#Vypracování úkolu 1
 def sudy_nebo_lichy(cislo):
    if cislo % 2 > 0: #Pokud zbytek po dělení je větší než 0, platí else
       print("Číslo X je liché")
