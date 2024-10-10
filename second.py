@@ -17,4 +17,4 @@ if __name__ == "__main__":
     text = cislo_text(cislo)
     print(text)
 
-#Řešení 2: Metoda ???
+#řešení 2: Skládací metoda
