@@ -30,7 +30,10 @@ def cislo_text(cislo):
     else:
         prvni_znak = int(cislo[0])  # první číslice (desítky)  
         druhy_znak = int(cislo[1])  # druhá číslice (jednotky)
-        return desitky[prvni_znak] + " " + jednotky[druhy_znak]
+        if druhy_znak == 0:
+            return desitky[prvni_znak]
+        else:
+            return desitky[prvni_znak] + " " + jednotky[druhy_znak]
 
 if __name__ == "__main__":
     cislo = input("Zadej číslo: ")
