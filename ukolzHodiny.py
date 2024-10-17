@@ -36,7 +36,7 @@ if __name__ == "__main__":
         "znamky": [1, 2, 1, 1, 3, 2]
     }
 
-    vysledek = naformatuj_text(slovnik)
+    vysledek = naformatuj_text(slovnik) # type: ignore
     print(vysledek)
 
     student["vek"] # -> 21
