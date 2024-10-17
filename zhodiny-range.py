@@ -7,7 +7,7 @@ def my_range(start,stop,step=1):
         i += step 
     return results
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     seznam = list(range(1,10))
     print(seznam)
 

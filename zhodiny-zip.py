@@ -1,6 +1,6 @@
 def my_zip(*iterables):
     results = []
-    length = len(iterable[0]) #5
+    length = len(iterables[0]) #5
     i = 0
     while i < length:
         subresult = []   #Jde po sloupcích ve třech polích a dvá dohromady, "i" se stupňuje a "posouvá"
@@ -10,7 +10,7 @@ def my_zip(*iterables):
         i += 1
     return results
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     jmena = ["Alice", "Bob", "Karel", "Eva","Martin"] # ->len() -> 5
     vek   = [     30,   20,     24,     18,     27  ]
     vaha  = [     50,   80,     90,     55,     67  ]

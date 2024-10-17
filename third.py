@@ -5,7 +5,7 @@ def je_prvocislo(cislo):
 
     #Napoveda jak otestova prvocislo:
     #Cislo 36 vznikne nasobenim:
-    #1 * 36
+    #1 * 36                                                                 porovnávat dělitelnost do 6ky ?
     #2 * 18
     #3 * 12
     #4 * 9

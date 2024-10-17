@@ -14,7 +14,7 @@ def my_enumerate(iterable,start=0):
         i += 1
     return results
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     seznam = list(enumerate(["ahoj","cau","jak","se","mas"]))
     print(seznam)
     seznam = my_enumerate(["ahoj","cau","jak","se","mas"],start=2)

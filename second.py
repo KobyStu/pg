@@ -20,23 +20,28 @@ vyjimky = {0: "deset",1: "jedenáct",2: "dvanáct",3: "třináct",4: "čtrnáct"
 
 def cislo_text(cislo):
     cislo_int = int(cislo)
+    des = cislo_int//10 #dostaneme desítky
+    jed = cislo_int%10 #zbytek po čel. dělení
+
     if cislo_int == 100:
         return "sto"
     elif cislo_int < 10: #Pokud je číslo jednociferné
         return jednotky[cislo_int]  
     elif cislo_int >= 10 and cislo_int < 20: 
-        druhy_znak = int(cislo[1])  # druhá číslice (jednotky) > třeba mít ve formátu string ze kterého se následně určí pozice a vypíše hodnotu charakteru na této pozici  (1 = druhá)
-        return vyjimky[druhy_znak]
+        #druhy_znak = int(cislo[1])  # druhá číslice (jednotky) > třeba mít ve formátu string ze kterého se následně určí pozice a vypíše hodnotu charakteru na této pozici  (1 = druhá)
+        return vyjimky[jed]
     else:
-        prvni_znak = int(cislo[0])  # první číslice (desítky)  
-        druhy_znak = int(cislo[1])  # druhá číslice (jednotky)
-        if druhy_znak == 0:
-            return desitky[prvni_znak]
+        #prvni_znak = int(cislo[0])  # první číslice (desítky)  
+        #druhy_znak = int(cislo[1])  # druhá číslice (jednotky)
+        if jed == 0:
+            return desitky[des]
         else:
-            return desitky[prvni_znak] + " " + jednotky[druhy_znak]
+            return desitky[des] + " " + jednotky[jed]
 
 if __name__ == "__main__":
     cislo = input("Zadej číslo: ")
     text = cislo_text(cislo)
     print(text)
 
+
+#vydělit 
