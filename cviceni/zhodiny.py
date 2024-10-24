@@ -8,7 +8,7 @@ def main(soubor):
         if vek < 20:
             print(radek)
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     if len(sys.argv)<= 1:
         print("Zadej soubor")
         sys.exit(1)
