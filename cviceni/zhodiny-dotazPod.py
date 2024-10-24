@@ -1,14 +1,25 @@
-from zhodiny_jaccard.py import jaccardova_vzdalenost_mnozin
-from zhodiny_levenstein.py import levensteinova_vzdalenost
+from zhodiny_jaccard import jaccardova_vzdalenost_mnozin
+from zhodiny_levenstein import levensteinova_vzdalenost
 
 
 def deduplikace_dotazu(dotazy):
+    i = 0
+    while i < len(dotazy):
+        j = i + 1
+        while j < len(dotazy):
+            jaccard = jaccardova_vzdalenost_mnozin(dotazy[i]["serp"], dotazy[j]["serp"])
+            levenstein = levensteinova_vzdalenost(dotazy[i]["dotaz"], dotazy[j]["dotaz"])
+            if jaccard < 0.5 or levenstein <= 1:
+                dotazy.pop(j)
+            else:
+                j += 1
+        i += 1
+    return dotazy
+
     """
-    tato funkce spocita jaccardovu vzdalenost a levensteinovu vzadelnost a vyradi z seznamu dotazy, polozky, ktere budou mit
+    tato funkce spocita jaccardovu vzdalenost a levensteinovu vzdalenost a vyradi z seznamu dotazy, polozky, ktere budou mit
     jaccardovu vzdalenost mensi nez 0.5 a levensteinovu vzdalenost <= 1
     """
-    pass
-
 
 if __name__ == "__main__":
 
