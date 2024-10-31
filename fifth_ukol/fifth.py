@@ -7,14 +7,16 @@ gif_header1 = b'GIF87a'
 gif_header2 = b'GIF89a'
 png_header = b'\x89PNG\r\n\x1a\n'
 
-
+# využít poznatky z prezentace - práce se soubory
 def read_header(file_name, header_length):
     """
     Tato funkce načte binární soubor z cesty file_name,
     z něj přečte prvních header_length bytů a ty vrátí pomocí return
     """
-    return b'xxx'
-
+    with open(file_name,"rb") as soubor:
+        prvni_dva_bajty = soubor.read(2)
+        
+        return 
 
 def is_jpeg(file_name):
     """
@@ -29,7 +31,7 @@ def is_jpeg(file_name):
     return False
 
 
-def is_gif(file_name):
+def is_gif(file_name): #dvě hlavičky
     """
     Funkce zkusí přečíst ze souboru hlavičku obrázku jpeg,
     tu srovná s definovanými hlavičkami v proměnných gif_header1 a gif_header2
@@ -63,5 +65,9 @@ def print_file_type(file_name):
 
 if __name__ == '__main__':
     # přidej try-catch blok, odchyť obecnou vyjímku Exception a vypiš ji
-    file_name = sys.argv[1]
+    file_name = sys.argv[1] #hledá parametr vedle fifth.py **** (třeba ošetřit výjimkou) + další podmínky(filedoesnotexist)
     print_file_type(file_name)
+
+#1.otevření souboru
+#2.přidání podmínek
+#3.výjimky

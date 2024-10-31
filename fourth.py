@@ -91,7 +91,7 @@ def je_tah_mozny(figurka, cilova_pozice, obsazene_pozice):
 
         # !!!! Dáma kombinuje pohyb věže a střelce - tedyi popisky by byly stejné viz. výše !!!!!
 
-        if cilovy_radek == aktualni_radek or cilovy_sloupec == aktualni_sloupec:  # Horizontální nebo vertikální pohyb
+        if cilovy_radek == aktualni_radek or cilovy_sloupec == aktualni_sloupec:  # Horizontální nebo vertikální pohyb - VĚŽ
             if cilovy_radek == aktualni_radek:  # Horizontální pohyb
                 for sloupec in range(min(aktualni_sloupec, cilovy_sloupec) + 1, max(aktualni_sloupec, cilovy_sloupec)):
                     if (aktualni_radek, sloupec) in obsazene_pozice:
@@ -102,7 +102,7 @@ def je_tah_mozny(figurka, cilova_pozice, obsazene_pozice):
                     if (radek, aktualni_sloupec) in obsazene_pozice:
                         return False
                 return True
-        elif abs(cilovy_radek - aktualni_radek) == abs(cilovy_sloupec - aktualni_sloupec):  # Diagonální pohyb
+        elif abs(cilovy_radek - aktualni_radek) == abs(cilovy_sloupec - aktualni_sloupec):  # Diagonální pohyb - STŘELEC
             radek_step = 1 if cilovy_radek > aktualni_radek else -1
             sloupec_step = 1 if cilovy_sloupec > aktualni_sloupec else -1
             radek = aktualni_radek + radek_step
