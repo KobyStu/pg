@@ -14,9 +14,7 @@ def read_header(file_name, header_length):
     z něj přečte prvních header_length bytů a ty vrátí pomocí return
     """
     with open(file_name,"rb") as soubor:
-        prvni_dva_bajty = soubor.read(2)
-        
-        return 
+        return soubor.read(header_length)
 
 def is_jpeg(file_name):
     """
@@ -25,29 +23,23 @@ def is_jpeg(file_name):
     """
     # načti hlavičku souboru
     header = read_header(file_name, len(jpeg_header))
+    return header.startswith(jpeg_header)
 
-    # vyhodnoť zda je soubor jpeg
-
-    return False
-
-
-def is_gif(file_name): #dvě hlavičky
+def is_gif(file_name):
     """
-    Funkce zkusí přečíst ze souboru hlavičku obrázku jpeg,
+    Funkce zkusí přečíst ze souboru hlavičku obrázku gif,
     tu srovná s definovanými hlavičkami v proměnných gif_header1 a gif_header2
     """
-    # vyhodnoť zda je soubor gif
-    return False
-
+    header = read_header(file_name, len(gif_header1))
+    return header.startswith(gif_header1) or header.startswith(gif_header2)
 
 def is_png(file_name):
     """
-    Funkce zkusí přečíst ze souboru hlavičku obrázku jpeg,
+    Funkce zkusí přečíst ze souboru hlavičku obrázku png,
     tu srovná s definovanou hlavičkou v proměnné png_header
     """
-    # vyhodnoť zda je soubor png
-    return False
-
+    header = read_header(file_name, len(png_header))
+    return header.startswith(png_header)
 
 def print_file_type(file_name):
     """
@@ -62,12 +54,18 @@ def print_file_type(file_name):
     else:
         print(f'Soubor {file_name} je neznámého typu')
 
-
 if __name__ == '__main__':
-    # přidej try-catch blok, odchyť obecnou vyjímku Exception a vypiš ji
-    file_name = sys.argv[1] #hledá parametr vedle fifth.py **** (třeba ošetřit výjimkou) + další podmínky(filedoesnotexist)
-    print_file_type(file_name)
+    try:
+        # Zkontrolujte, zda byl zadán název souboru
+        if len(sys.argv) < 2:
+            raise ValueError("Musíte zadat název souboru jako argument.")
 
-#1.otevření souboru
-#2.přidání podmínek
-#3.výjimky
+        file_name = sys.argv[1]  # hledá parametr vedle fifth.py
+        print_file_type(file_name)
+
+    except FileNotFoundError:
+        print(f'Chyba: Soubor {file_name} nebyl nalezen.')
+    except ValueError as ve:
+        print(f'Chyba: {ve}')
+    except Exception as e:
+        print(f'Nastala neočekávaná chyba: {e}')
