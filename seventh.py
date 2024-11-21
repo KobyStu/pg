@@ -1,6 +1,3 @@
-
-#zadání ještě bude opraveno, přidat potom z učitelova githubu/learning novou verzi !!!
-
 from abc import ABC, abstractmethod
 
 class Piece(ABC):
@@ -24,6 +21,10 @@ class Piece(ABC):
         """
         pass
 
+    @staticmethod
+    def is_position_on_board(position):
+        return 1 <= position[0] <= 8 and 1 <= position[1] <= 8
+
     @property
     def color(self):
         return self.__color
@@ -33,27 +34,33 @@ class Piece(ABC):
         return self.__position
 
     @position.setter
-    def set_position(self, new_postion):
-        # 
-        self.__position = new_postion
+    def position(self, new_position):
+        self.__position = new_position
 
     def __str__(self):
         return f'Piece({self.color}) at position {self.position}'
 
 
 class Pawn(Piece):
-   # def possible_moves(self):
-        #return[]
-    pass
-#pozor !! pěšák se hýbe jinak podle barvy
+    def possible_moves(self):
+        row, col = self.position
+        direction = 1 if self.color == 'white' else -1
+        moves = [(row + direction, col)]  # Pohyb vpřed
+
+        # Pěšák může mít možnost pohybu o dva políčka, pokud je na startovní pozici
+        if (self.color == 'white' and row == 2) or (self.color == 'black' and row == 7):
+            moves.append((row + 2 * direction, col))
+
+        # Filtruje tahy, které jsou mimo šachovnici
+        final_moves = [move for move in moves if self.is_position_on_board(move)]
+        return final_moves
+    
+    def __str__(self):
+        return f'Pawn({self.color}) at position {self.position}'
+
 
 class Knight(Piece):
     def possible_moves(self):
-        """
-        Vrací všechny možné tahy jezdce.
-        
-        :return: Seznam možných pozic [(row, col), ...].
-        """
         row, col = self.position
         moves = [
             (row + 2, col + 1), (row + 2, col - 1),
@@ -62,33 +69,107 @@ class Knight(Piece):
             (row - 1, col + 2), (row - 1, col - 2)
         ]
         # Filtruje tahy, které jsou mimo šachovnici
-        return [(r, c) for r, c in moves if 0 < r <= 8 and 0 < c <= 8]
-    
-    @property
-    def symbol(self):
-        return '♞' if self.color == "black" else '♘'
+        final_moves = [move for move in moves if self.is_position_on_board(move)]
+        return final_moves
 
     def __str__(self):
-        return f'Knight({self.symbol}) at position {self.position}'
+        return f'Knight({self.color}) at position {self.position}'
 
 
 class Bishop(Piece):
-    pass
+    def possible_moves(self):
+        row, col = self.position
+        moves = []
+        # Diagonální pohyby
+        for d in range(1, 8):
+            moves.append((row + d, col + d))  # doprava dolů
+            moves.append((row + d, col - d))  # doleva dolů
+            moves.append((row - d, col + d))  # doprava nahoru
+            moves.append((row - d, col - d))  # doleva nahoru
+
+        # Filtruje tahy, které jsou mimo šachovnici
+        final_moves = [move for move in moves if self.is_position_on_board(move)]
+        return final_moves
+    
+    def __str__(self):
+        return f'Bishop({self.color}) at position {self.position}'
 
 
 class Rook(Piece):
-    pass
+    def possible_moves(self):
+        row, col = self.position
+        moves = []
+        # Horizontální a vertikální pohyby
+        for d in range(1, 8):
+            moves.append((row + d, col))  # dolů
+            moves.append((row - d, col))  # nahoru
+            moves.append((row, col + d))  # doprava
+            moves.append((row, col - d))  # doleva
+
+        #Filtruje tahy, které jsou mimo šachovnici
+        final_moves = [move for move in moves if self.is_position_on_board(move)]
+        return final_moves
+    
+    def __str__(self):
+        return f'Rook({self.color}) at position {self.position}'
 
 
 class Queen(Piece):
-    pass
+    def possible_moves(self):
+        row, col = self.position
+        moves = []
+        
+        # Diagonální pohyby (jako dáma)
+        for d in range(1, 8):
+            moves.append((row + d, col + d))  # doprava dolů
+            moves.append((row + d, col - d))  # doleva dolů
+            moves.append((row - d, col + d))  # doprava nahoru
+            moves.append((row - d, col - d))  # doleva nahoru
+
+        # Horizontální a vertikální pohyby (jako věž)
+        for d in range(1, 8):
+            moves.append((row + d, col))  # dolů
+            moves.append((row - d, col))  # nahoru
+            moves.append((row, col + d))  # doprava
+            moves.append((row, col - d))  # doleva
+
+        # Filtruje tahy, které jsou mimo šachovnici
+        final_moves = [move for move in moves if self.is_position_on_board(move)]
+        return final_moves
+    
+    def __str__(self):
+        return f'Queen({self.color}) at position {self.position}'
 
 
 class King(Piece):
-    pass
+    def possible_moves(self):
+        row, col = self.position
+        moves = [
+            (row + 1, col), (row - 1, col),  # nahoru a dolů
+            (row, col + 1), (row, col - 1),  # doprava a doleva
+            (row + 1, col + 1), (row + 1, col - 1),  # diagonální pohyby
+            (row - 1, col + 1), (row - 1, col - 1)
+        ]
+        
+        # Filtruje tahy, které jsou mimo šachovnici
+        final_moves = [move for move in moves if self.is_position_on_board(move)]
+        return final_moves
+    
+    def __str__(self):
+        return f'King({self.color}) at position {self.position}'
 
 
 if __name__ == "__main__":
-    piece = Knight("white", (1, 2))
-    print(piece)
-    print(piece.possible_moves())
+    # Testování figur
+    pieces = [
+        Knight("black", (1, 2)),
+        Pawn("white", (2, 2)),
+        Bishop("black", (3, 3)),    
+        Rook("white", (1, 1)),
+        Queen("black", (4, 4)),
+        King("white", (5, 5))
+    ]
+    
+    for piece in pieces:
+        print(piece)
+        print(f'Possible moves: {piece.possible_moves()}')
