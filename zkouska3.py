@@ -29,7 +29,6 @@ class Circle(Shape):
         return math.pi * (self._radius**2)
     pass
 
-
 from unittest.mock import patch, MagicMock, mock_open
 
 # Pytest testy pro Příklad 3
