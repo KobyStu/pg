@@ -1,0 +1,35 @@
+                                          Poznámky k projektu:
+Knihovhy: Pymunku a Pygame
+1️⃣ Uživatelské rozhraní a interakce (Front-end část)
+
+📌 Co bude uživatel vidět a jak bude interagovat se simulací?
+- Aplikace bude v Pygame, což umožní jednoduché 2D vizuální zobrazení.
+- Ovládání  pomocí myši a klávesnice:
+- Kliknutím umístění bloku na plochu, držením pohyb s blokem.
+- Klávesami výběr materiálu (např. D = dřevo, K = kámen -> zatím první výběr).
+- Bude  možnost restartu 
+- Herní plocha bude 2D mřížka, kde se budou bloky chovat podle fyzikálních zákonů.
+- Design nebude složitý, cílem je testovat fyzikální interakce, ne detailní UI a musí se to stihnout.
+
+2️⃣ Simulace fyziky a propojení s interakcí
+📌 Jak bude fungovat fyzika a jak to propojím s vizuální částí?
+- Používat Pymunk – fyzikální knihovna pro Python. Ta umožní:
+- Simulovat gravitaci, kolize a pevnost materiálů.
+- Každý blok bude mít hmotnost a pevnost – pokud je přetížený, může se „rozbít“.
+- Každý blok bude objekt s vlastnostmi (hmotnost, tření, pevnost).
+- Bloky se budou vykreslovat v Pygame podle dat z fyzikální simulace.
+
+📌 Jak se to propojí s bodem 1 (uživatelským rozhraním)?
+Při kliknutí se vytvoří objekt v Pymunku, který se pak zobrazí v Pygame.
+- Pokud blok spadne nebo se rozbije, Pygame to vizuálně vykreslí. (na rozbití zapracovat)
+
+Alternativa: Použít základní fyzikální model (manuálně počítat síly a kolize), méně realistické.
+
+3️⃣ Očekávaný výstup (finální verze projektu)
+📌 Jak bude vypadat finální verze programu?
+- Bude to desktopová aplikace běžící v okně (Pygame).
+- Co bude umět?
+✅ Umožní stavět konstrukce z bloků různých materiálů.
+✅ Simulace fyziky bude určovat, jestli konstrukce spadne.
+✅ Možnost „shodit“ stavbu pomocí interakce a sledovat její rozpad.
+✅ Reset tlačítko pro nový pokus.
